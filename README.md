@@ -14,4 +14,10 @@ This module defines a new page class of type `Logicbrush\RollupPage\Model\Rollup
 
 ### Options
 
+#### RollupPage
+
 - **Rollup Display**: When set to *"Show Full Content"*, the content of the child pages will be embedded into the Rollup Page's content. If set to *"Show Links Only"*, a list of links to the child pages will be displayed instead.
+
+#### All Pages
+
+- **Never Rollup**: If checked, this page will never be rolled up into the parent `RollupPage`.
