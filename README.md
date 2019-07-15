@@ -10,7 +10,7 @@ composer require "logicbrush/silverstripe-rolluppage"
 
 ## Usage
 
-This module defines a new page class of type `Logicbrush\RollupPage\Model\RollupPage`.  When you create an instance of this page type, all of the children of that instance will have their content displayed inline with the page.
+This module defines a new page class of type `Logicbrush\RollupPage\Model\RollupPage`.  When you create an instance of this page type, all of the children of that instance will have their content displayed inline -- "rolled up" -- with the output of the page.
 
 ### Options
 
