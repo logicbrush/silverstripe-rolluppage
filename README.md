@@ -2,6 +2,10 @@
 
 A fairly simple module for the SilverStripe CMS which rolls up the contents of child pages for display on a single page.
 
+## Why?
+
+Have you ever found yourself trying to decide if you should have a single page of content with multiple headings, or a series of pages in a heirarchy. This module lets you set up your content as distinct pages in the page tree, and then flip between structures using a single radio button.
+
 ## Installation
 
 ```sh
