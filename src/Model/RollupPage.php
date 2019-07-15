@@ -11,6 +11,8 @@ class RollupPage extends \Page {
 	private static $icon = 'mysite/images/treeicons/rollup-page.png';
 	private static $description = "A page that rolls up content from its children.";
 
+    private static $table_name = "RollupPage";
+
 	private static $db = [
 		'ShowLinksOnly' => 'Boolean',
 	];
