@@ -16,7 +16,7 @@
   },
   "autoload": {
     "psr-4": {
-        "Logicbrush\\SilverStripe\\RollupPage\\": "src/"
+        "Logicbrush\\RollupPage\\": "src/"
     }
   },
   "extra": {

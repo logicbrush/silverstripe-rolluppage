@@ -4,7 +4,7 @@ use SilverStripe\Forms\OptionsetField;
 use SilverStripe\ORM\ArrayList;
 use SilverStripe\ORM\FieldType\DBField;
 
-namespace Logicbrush\SilverStripe\RollupPage\Model;
+namespace Logicbrush\RollupPage\Model;
     
 class RollupPage extends \Page {
 
