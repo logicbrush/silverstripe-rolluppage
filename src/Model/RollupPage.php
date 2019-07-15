@@ -8,7 +8,7 @@ use SilverStripe\ORM\FieldType\DBField;
 
 class RollupPage extends \Page {
 
-	private static $icon = 'mysite/images/treeicons/rollup-page.png';
+	//private static $icon = 'mysite/images/treeicons/rollup-page.png';
 	private static $description = "A page that rolls up content from its children.";
 
     private static $table_name = "RollupPage";
