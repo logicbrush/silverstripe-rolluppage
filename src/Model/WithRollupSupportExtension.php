@@ -2,10 +2,11 @@
 
 namespace Logicbrush\RollupPage\Model;
 
-use SilverStripe\Forms\FieldList;
-use SilverStripe\Forms\CheckboxField;
-use SilverStripe\Control\Controller;
 use SilverStripe\CMS\Controllers\CMSPageEditController;
+use SilverStripe\Control\Controller;
+use SilverStripe\Forms\CheckboxField;
+use SilverStripe\Forms\FieldList;
+use SilverStripe\ORM\DataExtension;
 
 class WithRollupSupportExtension extends DataExtension {
 
