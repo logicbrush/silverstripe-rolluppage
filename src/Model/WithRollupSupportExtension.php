@@ -14,9 +14,9 @@ class WithRollupSupportExtension extends DataExtension {
         'NeverRollup' => 'Boolean',
     ];
 
-    public function updateCMSFields( FieldList $fields) {
+    public function updateSettingsFields( FieldList $fields) {
         
-		$fields->insertAfter( 'ShowInMenus', CheckboxField::create( 'NeverRollup', 'Never rollup this page?' ) );
+		$fields->insertAfter( 'ShowInSearch', CheckboxField::create( 'NeverRollup', 'Never rollup this page?' ) );
 
     }
 
