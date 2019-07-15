@@ -11,8 +11,8 @@
     "issues": "http://github.com/logicbrush/silverstripe-rollupage/issues"
   },
   "require": {
-    "silverstripe/cms": "^4",
-    "silverstripe/framework": "^4"
+      "silverstripe/vendor-plugin": "^1.0",
+      "silverstripe/framework": "~4.0"
   },
   "autoload": {
     "psr-4": {
@@ -22,11 +22,8 @@
   "extra": {
     "installer-name": "silverstripe-rolluppage",
     "expose": [
-        "client"
     ],
     "screenshots": [
-      "relative/path/screenshot1.png",
-      "http://myhost.com/screenshot2.png"
     ]
   }
 }
