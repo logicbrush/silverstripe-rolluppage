@@ -20,7 +20,7 @@ class RollupPage extends \Page {
 	public function getCMSFields() {
 		$fields = parent::getCMSFields();
 
-		$fields->insertBefore( OptionsetField::create( 'ShowLinksOnly', 'Rollup Options', [ 0 => 'Show Full Content', 1 =>'Show Links Only' ] ),
+		$fields->insertBefore( OptionsetField::create( 'ShowLinksOnly', 'Rollup Display', [ 0 => 'Show Full Content', 1 =>'Show Links Only' ] ),
 			'Content' );
 		$contentField = $fields->dataFieldByName( 'Content' );
 		$contentField->setTitle( 'Introduction' );
