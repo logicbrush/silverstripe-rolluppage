@@ -1,11 +1,11 @@
 <?php
 
+namespace Logicbrush\RollupPage\Model;
+    
 use SilverStripe\Forms\OptionsetField;
 use SilverStripe\ORM\ArrayList;
 use SilverStripe\ORM\FieldType\DBField;
 
-namespace Logicbrush\RollupPage\Model;
-    
 class RollupPage extends \Page {
 
 	private static $icon = 'mysite/images/treeicons/rollup-page.png';
