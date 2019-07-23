@@ -1,6 +1,7 @@
 {
 		"name": "logicbrush/silverstripe-rolluppage",
 		"description": "A module for the SilverStripe CMS which rolls up the contents of child pages for display on a single page.",
+		"homepage": "https://www.logicbrush.com/specialities/silverstripe-development/",
 		"keywords": ["silverstripe"],
 		"type": "silverstripe-vendormodule",
 		"license": "BSD-3-Clause",
