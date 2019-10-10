@@ -62,8 +62,19 @@ class RollupPage extends \Page {
 				if ( ! $child->NeverRollup ) {
 					$childContent = $child->hasMethod( 'Content' ) ? $child->Content() : $child->Content;
 					if ( $childContent ) {
+
+                        // The class may implement a 'BeforeRollup'
+                        // method that allows some content to be
+                        // inserted before the main content.
+                        if ($child->hasMethod('BeforeRollup'))
+                            $content .= $child->BeforeRollup();
+                        
 						$content .= '<h2><a name="' . $child->URLSegment . '"></a>' . $child->Title . '</h2>';
 						$content .= $childContent;
+
+                        // Likewise, there is an 'AfterRollup' method.
+                        if ($child->hasMethod('AfterRollup'))
+                            $content .= $child->AfterRollup();
 					}
 				}
 			}
