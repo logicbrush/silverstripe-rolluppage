@@ -1,0 +1,6 @@
+---
+Name: rolluppagelegacy
+---
+SilverStripe\ORM\DatabaseAdmin:
+  classname_value_remapping:
+    RollupPage: Logicbrush\RollupPage\Model\RollupPage
