@@ -39,9 +39,9 @@ class RollupPage extends Page
 				'ShowLinksOnly',
 				'Rollup Display',
 				[
-					0 => 'Show Full Content',
-					1 => 'Show Links in a list',
-					2 => 'Show Links as tabs',
+					0 => 'Show children inline',
+					2 => 'Show children in tabs',
+					1 => 'Show children as links',
 				]
 			),
 			'Content' );
