@@ -18,6 +18,7 @@
 		},
 		"extra": {
 				"expose": [
+						"images"
 				]
 		},
 		"require-dev": {
