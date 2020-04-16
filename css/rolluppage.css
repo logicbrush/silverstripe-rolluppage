@@ -1,0 +1,26 @@
+.typography .rollup-page-tabs {
+	display: flex;
+	flex-wrap: wrap;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	background: rgba(0, 0, 0, 0.05);
+}
+
+.typography .rollup-page-tabs li {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.typography .rollup-page-tabs li a,
+.typography .rollup-page-tabs li span {
+	display: block;
+	padding: 1rem 1rem;
+	text-decoration: none;
+	transition: background-color 250ms;
+}
+
+.typography .rollup-page-tabs li:hover a {
+	background: rgba(0, 0, 0, 0.05);
+}
