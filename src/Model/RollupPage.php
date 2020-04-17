@@ -1,26 +1,60 @@
 <?php
 
 namespace Logicbrush\RollupPage\Model;
-    
+
+use Logicbrush\RollupPage\Controllers\RollupPageController;
+use Page;
 use SilverStripe\Forms\OptionsetField;
 use SilverStripe\ORM\ArrayList;
-use SilverStripe\ORM\FieldType\DBField;
 
-class RollupPage extends \Page {
+class RollupPage extends Page
+{
+	const DISPLAY_INLINE = 0;
+	const DISPLAY_LIST = 1;
+	const DISPLAY_TABS = 2;
 
-	//private static $icon = 'mysite/images/treeicons/rollup-page.png';
-	private static $description = "A page that rolls up content from its children.";
+	const ROLLUP_PAGE_DISPLAY_TYPE = [
+		self::DISPLAY_INLINE => 'content',
+		self::DISPLAY_LIST => 'list',
+		self::DISPLAY_TABS => 'tabs',
+	];
 
-    private static $table_name = "RollupPage";
+	private static $icon = 'logicbrush/silverstripe-rolluppage:images/treeicons/rollup-page.png';
+	private static $description = 'A page that rolls up content from its children.';
+
+	private static $table_name = 'RollupPage';
 
 	private static $db = [
-		'ShowLinksOnly' => 'Boolean',
+		'ShowLinksOnly' => 'Int',
 	];
+
+	/**
+	 * Set this to true to disable automatic inclusion of CSS files
+	 * @config
+	 * @var bool
+	 */
+	private static $block_default_rollup_page_css = false;
+
+	/**
+	 * Set this to true to disable automatic inclusion of Javascript files
+	 * @config
+	 * @var bool
+	 */
+	private static $block_default_rollup_page_js = false;
 
 	public function getCMSFields() {
 		$fields = parent::getCMSFields();
 
-		$fields->insertBefore( OptionsetField::create( 'ShowLinksOnly', 'Rollup Display', [ 0 => 'Show Full Content', 1 =>'Show Links Only' ] ),
+		$fields->insertBefore(
+			OptionsetField::create(
+				'ShowLinksOnly',
+				'Rollup Display',
+				[
+					0 => 'Show children inline',
+					2 => 'Show children in tabs',
+					1 => 'Show children as links',
+				]
+			),
 			'Content' );
 		$contentField = $fields->dataFieldByName( 'Content' );
 		$contentField->setTitle( 'Introduction' );
@@ -30,11 +64,17 @@ class RollupPage extends \Page {
 
 
 	public function Children() {
-		if ( ! $this->ShowLinksOnly ) {
+		if ( $this->ShowLinksOnly !== 1 ) {
 			return ArrayList::create();
 		}
 		$children = parent::Children();
-		return parent::Children()->exclude( [ 'Content' => '' ] );
+
+		return parent::Children()->exclude( ['Content' => ''] );
+	}
+
+
+	public function getRollupPageDisplayType() {
+		return self::ROLLUP_PAGE_DISPLAY_TYPE[$this->ShowLinksOnly];
 	}
 
 
@@ -42,39 +82,54 @@ class RollupPage extends \Page {
 		// original content.
 		$content = $this->Content;
 
-		if ( $this->ShowLinksOnly ) {
-			$content .= '<ul>';
-			foreach ( $this->AllChildren() as $child ) {
+		if ( $this->ShowLinksOnly === 1 || $this->ShowLinksOnly === 2 ) {
+			$content .= '<nav class="rollup-page-navigation-' . $this->getRollupPageDisplayType() . '"><ul>';
+			foreach ( $this->AllChildren() as $index => $child ) {
 				if ( ! $child->NeverRollup ) {
 					$childContent = $child->hasMethod( 'Content' ) ? $child->Content() : $child->Content;
+
 					if ( $child->ShowInMenus ) {
+						$content .= '<li' . ( $index === 0 ? ' class="active"' : '' ) . '>';
+
 						if ( $childContent ) {
-							$content .= '<li><a href="' . $child->Link() . '">' . $child->MenuTitle . '</a></li>';
+							$content .= '<a href="' . $child->Link() . '" data-url-segment="' . $child->URLSegment . '">' . $child->MenuTitle . '</a>';
 						} else {
-							$content .= '<li>' . $child->MenuTitle . '</li>';
+							$content .= '<span>' . $child->MenuTitle . '</span>';
 						}
+
+						$content .= '</li>';
 					}
 				}
 			}
-			$content .= '</ul>';
-		} else {
-			foreach ( $this->AllChildren() as $child ) {
+			$content .= '</ul></nav>';
+		}
+
+		if ( $this->ShowLinksOnly === self::DISPLAY_INLINE || $this->ShowLinksOnly === self::DISPLAY_TABS ) {
+			foreach ( $this->AllChildren() as $index => $child ) {
 				if ( ! $child->NeverRollup ) {
 					$childContent = $child->hasMethod( 'Content' ) ? $child->Content() : $child->Content;
 					if ( $childContent ) {
+						$content .= '<div class="rollup-page-content' . ( $index === 0 ? ' active' : '' ) . '" id="rollup-page-content-' . $child->URLSegment . '">';
 
-                        // The class may implement a 'BeforeRollup'
-                        // method that allows some content to be
-                        // inserted before the main content.
-                        if ($child->hasMethod('BeforeRollup'))
-                            $content .= $child->BeforeRollup();
-                        
-						$content .= '<h2><a name="' . $child->URLSegment . '"></a>' . $child->Title . '</h2>';
+						// The class may implement a 'BeforeRollup'
+						// method that allows some content to be
+						// inserted before the main content.
+						if ( $child->hasMethod( 'BeforeRollup' ) ) {
+							$content .= $child->BeforeRollup();
+						}
+
+						if ($this->ShowLinksOnly != self::DISPLAY_TABS) {
+							// For tabs, the display of the header is redundant.
+							$content .= '<h2><a name="' . $child->URLSegment . '"></a>' . $child->Title . '</h2>';
+						}
 						$content .= $childContent;
 
-                        // Likewise, there is an 'AfterRollup' method.
-                        if ($child->hasMethod('AfterRollup'))
-                            $content .= $child->AfterRollup();
+						// Likewise, there is an 'AfterRollup' method.
+						if ( $child->hasMethod( 'AfterRollup' ) ) {
+							$content .= $child->AfterRollup();
+						}
+
+						$content .= '</div>';
 					}
 				}
 			}
@@ -84,17 +139,8 @@ class RollupPage extends \Page {
 	}
 
 
-}
-
-
-class RollupPageController extends \PageController {
-
-	public function index() {
-
-		// return composite.
-		return [
-			'Content' => DBField::create_field( 'HTMLText', $this->Content() )
-		];
+	public function getControllerName() {
+		return RollupPageController::class;
 	}
 
 
