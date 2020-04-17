@@ -23,7 +23,7 @@ class RollupPageTest extends SapphireTest
 
 		$fields = $rollupPage->getCMSFields();
 		$this->assertNotNull( $fields );
-		$this->assertNotNull( $fields->dataFieldByName('ShowLinksOnly') );
+		$this->assertNotNull( $fields->dataFieldByName( 'ShowLinksOnly' ) );
 	}
 
 
@@ -109,7 +109,7 @@ class RollupPageTest extends SapphireTest
 		$page1->write();
 		$page1->publish( 'Stage', 'Live' );
 
-		$page2 = Page::create();
+		$page2 = FakePage::create();
 		$page2->Title = 'Page 2';
 		$page2->Content = '<p>Page 2 content</p>';
 		$page2->ParentID = $rollupPage->ID;
@@ -118,6 +118,8 @@ class RollupPageTest extends SapphireTest
 
 		$this->assertContains( '<p>Page 1 content</p>', $rollupPage->Content() );
 		$this->assertContains( '<p>Page 2 content</p>', $rollupPage->Content() );
+		$this->assertContains( '<div>Page 2 Before Content</div>', $rollupPage->Content() );
+		$this->assertContains( '<div>Page 2 After Content</div>', $rollupPage->Content() );
 		$this->assertNotContains( '<a href="' . $page1->Link() . '">Page 1</a>', $rollupPage->Content() );
 
 		$rollupPage->ShowLinksOnly = 1;
@@ -141,7 +143,29 @@ class RollupPageTest extends SapphireTest
 		$rollupPage->write();
 		$rollupPage->publish( 'Stage', 'Live' );
 
+		$page1->write();
+		$page1->publish( 'Stage', 'Live' );
+
+		$page2->Content = '';
+		$page2->write();
+		$page2->publish( 'Stage', 'Live' );
+
+		$rollupPage->write();
+		$rollupPage->publish( 'Stage', 'Live' );
+
+		$this->assertContains( '<p>Page 1 content</p>', $rollupPage->Content() );
+		$this->assertContains( '<p>Page 2 content</p>', $rollupPage->Content() );
+		$this->assertContains( '<div>Page 2 Before Content</div>', $rollupPage->Content() );
+		$this->assertContains( '<div>Page 2 After Content</div>', $rollupPage->Content() );
 		$this->assertContains( '<ul class="rollup-page-navigation-tabs">', $rollupPage->Content() );
+		$this->assertContains(
+			'<a href="' . $page1->Link() . '" data-url-segment="' . $page1->URLSegment . '">Page 1</a>',
+			$rollupPage->Content()
+		);
+		$this->assertContains(
+			'<span>Page 2</span>',
+			$rollupPage->Content()
+		);
 	}
 
 
