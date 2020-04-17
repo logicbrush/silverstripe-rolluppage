@@ -9,6 +9,12 @@ use SilverStripe\ORM\ArrayList;
 
 class RollupPage extends Page
 {
+	const ROLLUP_PAGE_DISPLAY_TYPE = [
+		0 => 'content',
+		1 => 'list',
+		2 => 'tabs',
+	];
+
 	private static $icon = 'logicbrush/silverstripe-rolluppage:images/treeicons/rollup-page.png';
 	private static $description = 'A page that rolls up content from its children.';
 
@@ -16,12 +22,6 @@ class RollupPage extends Page
 
 	private static $db = [
 		'ShowLinksOnly' => 'Int',
-	];
-
-	public const ROLLUP_PAGE_DISPLAY_TYPE = [
-		0 => 'content',
-		1 => 'list',
-		2 => 'tabs',
 	];
 
 	/**
