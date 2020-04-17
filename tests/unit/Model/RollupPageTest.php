@@ -133,7 +133,7 @@ class RollupPageTest extends SapphireTest
 		$page2->publish( 'Stage', 'Live' );
 
 		$this->assertNotContains( '<p>Page 1 content</p>', $rollupPage->Content() );
-		$this->assertContains( '<ul class="rollup-page-navigation-list">', $rollupPage->Content() );
+		$this->assertContains( '<nav class="rollup-page-navigation-list">', $rollupPage->Content() );
 		$this->assertContains(
 			'<a href="' . $page1->Link() . '" data-url-segment="' . $page1->URLSegment . '">Page 1</a>',
 			$rollupPage->Content()
@@ -154,7 +154,7 @@ class RollupPageTest extends SapphireTest
 		$rollupPage->publish( 'Stage', 'Live' );
 
 		$this->assertContains( '<p>Page 1 content</p>', $rollupPage->Content() );
-		$this->assertContains( '<ul class="rollup-page-navigation-tabs">', $rollupPage->Content() );
+		$this->assertContains( '<nav class="rollup-page-navigation-tabs">', $rollupPage->Content() );
 		$this->assertContains(
 			'<a href="' . $page1->Link() . '" data-url-segment="' . $page1->URLSegment . '">Page 1</a>',
 			$rollupPage->Content()
