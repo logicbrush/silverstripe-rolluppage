@@ -17,9 +17,7 @@ matrix:
     - php: 7.2
       env: DB=MYSQL RECIPE_VERSION=4.4.5 PHPUNIT_COVERAGE_TEST=1
     - php: 7.3
-      env: DB=MYSQL RECIPE_VERSION=4.5.x-dev PHPUNIT_TEST=1
-    - php: 7.3
-      env: DB=MYSQL RECIPE_VERSION=4.x-dev PHPUNIT_TEST=1
+      env: DB=MYSQL RECIPE_VERSION=4.5.2 PHPUNIT_TEST=1
 
 services:
   - mysql
