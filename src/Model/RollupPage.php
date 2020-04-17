@@ -14,9 +14,9 @@ class RollupPage extends Page
 	const DISPLAY_TABS = 2;
 
 	const ROLLUP_PAGE_DISPLAY_TYPE = [
-		DISPLAY_INLINE => 'content',
-		DISPLAY_LIST => 'list',
-		DISPLAY_TABS => 'tabs',
+		self::DISPLAY_INLINE => 'content',
+		self::DISPLAY_LIST => 'list',
+		self::DISPLAY_TABS => 'tabs',
 	];
 
 	private static $icon = 'logicbrush/silverstripe-rolluppage:images/treeicons/rollup-page.png';
