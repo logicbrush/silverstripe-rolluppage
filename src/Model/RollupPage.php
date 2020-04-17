@@ -83,7 +83,7 @@ class RollupPage extends Page
 		$content = $this->Content;
 
 		if ( $this->ShowLinksOnly === 1 || $this->ShowLinksOnly === 2 ) {
-			$content .= '<ul class="rollup-page-navigation-' . $this->getRollupPageDisplayType() . '">';
+			$content .= '<nav class="rollup-page-navigation-' . $this->getRollupPageDisplayType() . '"><ul>';
 			foreach ( $this->AllChildren() as $index => $child ) {
 				if ( ! $child->NeverRollup ) {
 					$childContent = $child->hasMethod( 'Content' ) ? $child->Content() : $child->Content;
@@ -101,7 +101,7 @@ class RollupPage extends Page
 					}
 				}
 			}
-			$content .= '</ul>';
+			$content .= '</ul></nav>';
 		}
 
 		if ( $this->ShowLinksOnly === self::DISPLAY_INLINE || $this->ShowLinksOnly === self::DISPLAY_TABS ) {
