@@ -1,4 +1,4 @@
-.typography .rollup-page-navigation-tabs {
+.typography .rollup-page-navigation-tabs ul {
 	display: flex;
 	flex-wrap: wrap;
 	list-style: none;
