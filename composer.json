@@ -13,6 +13,7 @@
 		"email": "jflearn@logicbrush.com"
 	}],
 	"require": {
+		"php": ">=7.2.0",
 		"silverstripe/cms": "^4.0"
 	},
 	"extra": {
@@ -29,5 +30,10 @@
 		"psr-4": {
 			"Logicbrush\\RollupPage\\": "src/"
 		}
-	}
+	},
+    "autoload-dev": {
+        "psr-4": {
+            "Logicbrush\\RollupPage\\Tests\\": "tests/"
+        }
+    }
 }

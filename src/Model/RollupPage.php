@@ -9,10 +9,14 @@ use SilverStripe\ORM\ArrayList;
 
 class RollupPage extends Page
 {
+	const DISPLAY_INLINE = 0;
+	const DISPLAY_LIST = 1;
+	const DISPLAY_TABS = 2;
+
 	const ROLLUP_PAGE_DISPLAY_TYPE = [
-		0 => 'content',
-		1 => 'list',
-		2 => 'tabs',
+		DISPLAY_INLINE => 'content',
+		DISPLAY_LIST => 'list',
+		DISPLAY_TABS => 'tabs',
 	];
 
 	private static $icon = 'logicbrush/silverstripe-rolluppage:images/treeicons/rollup-page.png';
@@ -100,7 +104,7 @@ class RollupPage extends Page
 			$content .= '</ul>';
 		}
 
-		if ( $this->ShowLinksOnly === 0 || $this->ShowLinksOnly === 2 ) {
+		if ( $this->ShowLinksOnly === DISPLAY_INLINE || $this->ShowLinksOnly === DISPLAY_TABS ) {
 			foreach ( $this->AllChildren() as $index => $child ) {
 				if ( ! $child->NeverRollup ) {
 					$childContent = $child->hasMethod( 'Content' ) ? $child->Content() : $child->Content;
@@ -114,7 +118,10 @@ class RollupPage extends Page
 							$content .= $child->BeforeRollup();
 						}
 
-						$content .= '<h2><a name="' . $child->URLSegment . '"></a>' . $child->Title . '</h2>';
+						if ($this->ShowLinksOnly != DISPLAY_TABS) {
+							// For tabs, the display of the header is redundant.
+							$content .= '<h2><a name="' . $child->URLSegment . '"></a>' . $child->Title . '</h2>';
+						}
 						$content .= $childContent;
 
 						// Likewise, there is an 'AfterRollup' method.
