@@ -104,7 +104,7 @@ class RollupPage extends Page
 			$content .= '</ul>';
 		}
 
-		if ( $this->ShowLinksOnly === DISPLAY_INLINE || $this->ShowLinksOnly === DISPLAY_TABS ) {
+		if ( $this->ShowLinksOnly === self::DISPLAY_INLINE || $this->ShowLinksOnly === self::DISPLAY_TABS ) {
 			foreach ( $this->AllChildren() as $index => $child ) {
 				if ( ! $child->NeverRollup ) {
 					$childContent = $child->hasMethod( 'Content' ) ? $child->Content() : $child->Content;
@@ -118,7 +118,7 @@ class RollupPage extends Page
 							$content .= $child->BeforeRollup();
 						}
 
-						if ($this->ShowLinksOnly != DISPLAY_TABS) {
+						if ($this->ShowLinksOnly != self::DISPLAY_TABS) {
 							// For tabs, the display of the header is redundant.
 							$content .= '<h2><a name="' . $child->URLSegment . '"></a>' . $child->Title . '</h2>';
 						}
