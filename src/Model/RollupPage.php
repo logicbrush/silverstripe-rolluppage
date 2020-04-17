@@ -31,6 +31,13 @@ class RollupPage extends Page
 	 */
 	private static $block_default_rollup_page_css = false;
 
+	/**
+	 * Set this to true to disable automatic inclusion of Javascript files
+	 * @config
+	 * @var bool
+	 */
+	private static $block_default_rollup_page_js = false;
+
 	public function getCMSFields() {
 		$fields = parent::getCMSFields();
 
@@ -53,7 +60,7 @@ class RollupPage extends Page
 
 
 	public function Children() {
-		if ( ! $this->ShowLinksOnly ) {
+		if ( $this->ShowLinksOnly !== 1 ) {
 			return ArrayList::create();
 		}
 		$children = parent::Children();
@@ -71,26 +78,34 @@ class RollupPage extends Page
 		// original content.
 		$content = $this->Content;
 
-		if ( $this->ShowLinksOnly ) {
-			$content .= '<ul class="rollup-page-' . $this->getRollupPageDisplayType() . '">';
-			foreach ( $this->AllChildren() as $child ) {
+		if ( $this->ShowLinksOnly === 1 || $this->ShowLinksOnly === 2 ) {
+			$content .= '<ul class="rollup-page-navigation-' . $this->getRollupPageDisplayType() . '">';
+			foreach ( $this->AllChildren() as $index => $child ) {
 				if ( ! $child->NeverRollup ) {
 					$childContent = $child->hasMethod( 'Content' ) ? $child->Content() : $child->Content;
+
 					if ( $child->ShowInMenus ) {
+						$content .= '<li' . ( $index === 0 ? ' class="active"' : '' ) . '>';
+
 						if ( $childContent ) {
-							$content .= '<li><a href="' . $child->Link() . '">' . $child->MenuTitle . '</a></li>';
+							$content .= '<a href="' . $child->Link() . '" data-url-segment="' . $child->URLSegment . '">' . $child->MenuTitle . '</a>';
 						} else {
-							$content .= '<li><span>' . $child->MenuTitle . '</span></li>';
+							$content .= '<span>' . $child->MenuTitle . '</span>';
 						}
+
+						$content .= '</li>';
 					}
 				}
 			}
 			$content .= '</ul>';
-		} else {
-			foreach ( $this->AllChildren() as $child ) {
+		}
+
+		if ( $this->ShowLinksOnly === 0 || $this->ShowLinksOnly === 2 ) {
+			foreach ( $this->AllChildren() as $index => $child ) {
 				if ( ! $child->NeverRollup ) {
 					$childContent = $child->hasMethod( 'Content' ) ? $child->Content() : $child->Content;
 					if ( $childContent ) {
+						$content .= '<div class="rollup-page-content' . ( $index === 0 ? ' active' : '' ) . '" id="rollup-page-content-' . $child->URLSegment . '">';
 
 						// The class may implement a 'BeforeRollup'
 						// method that allows some content to be
@@ -106,6 +121,8 @@ class RollupPage extends Page
 						if ( $child->hasMethod( 'AfterRollup' ) ) {
 							$content .= $child->AfterRollup();
 						}
+
+						$content .= '</div>';
 					}
 				}
 			}

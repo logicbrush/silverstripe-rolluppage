@@ -1,4 +1,4 @@
-.typography .rollup-page-tabs {
+.typography .rollup-page-navigation-tabs {
 	display: flex;
 	flex-wrap: wrap;
 	list-style: none;
@@ -7,20 +7,35 @@
 	background: rgba(0, 0, 0, 0.05);
 }
 
-.typography .rollup-page-tabs li {
+.typography .rollup-page-navigation-tabs li {
 	list-style: none;
 	margin: 0;
 	padding: 0;
 }
 
-.typography .rollup-page-tabs li a,
-.typography .rollup-page-tabs li span {
+.typography .rollup-page-navigation-tabs li a,
+.typography .rollup-page-navigation-tabs li span {
+	color: #000000;
 	display: block;
 	padding: 1rem 1rem;
 	text-decoration: none;
 	transition: background-color 250ms;
 }
 
-.typography .rollup-page-tabs li:hover a {
+.typography .rollup-page-navigation-tabs li:hover a {
+	color: #000000;
 	background: rgba(0, 0, 0, 0.05);
+}
+
+.typography .rollup-page-navigation-tabs li.active a {
+	color: #000000;
+	background: rgba(0, 0, 0, 0.1);
+}
+
+.typography .rollup-page-content {
+	display: none;
+}
+
+.typography .rollup-page-content.active {
+	display: block;
 }

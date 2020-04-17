@@ -17,8 +17,9 @@
 	},
 	"extra": {
 		"expose": [
+			"css",
 			"images",
-			"css"
+			"javascript"
 		]
 	},
 	"require-dev": {

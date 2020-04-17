@@ -4,9 +4,9 @@ namespace Logicbrush\RollupPage\Tests;
 
 use Logicbrush\RollupPage\Model\RollupPage;
 use Page;
-use SilverStripe\Dev\FunctionalTest;
+use SilverStripe\Dev\SapphireTest;
 
-class RollupPageTest extends FunctionalTest
+class RollupPageTest extends SapphireTest
 {
 	protected $usesDatabase = true;
 
@@ -14,21 +14,6 @@ class RollupPageTest extends FunctionalTest
 		$rollupPage = new RollupPage();
 		$rollupPage->write();
 		$this->assertNotNull( $rollupPage );
-	}
-
-
-	public function testDisplayingRollupPage() {
-		$rollupPage = RollupPage::create();
-		$rollupPage->Title = 'Rollup Page';
-		$rollupPage->Content = '<p>Rollup</p>';
-		$rollupPage->write();
-		$rollupPage->publish( 'Stage', 'Live' );
-
-		$response = $this->get( $rollupPage->Link() );
-		$this->assertEquals( 200, $response->getStatusCode() );
-		$this->assertPartialMatchBySelector( 'h1', [
-				'Rollup Page',
-			] );
 	}
 
 
@@ -57,8 +42,17 @@ class RollupPageTest extends FunctionalTest
 		$page1->publish( 'Stage', 'Live' );
 
 		$page2 = Page::create();
-		$page2->Content = '<p>Page 2</p>';
+		$page2->Content = '';
 		$page2->ParentID = $rollupPage->ID;
+		$page2->write();
+		$page2->publish( 'Stage', 'Live' );
+
+		$rollupPage->write();
+		$rollupPage->publish( 'Stage', 'Live' );
+
+		$this->assertEquals( 1, $rollupPage->Children()->count() );
+
+		$page2->Content = '<p>Page 2</p>';
 		$page2->write();
 		$page2->publish( 'Stage', 'Live' );
 
@@ -71,16 +65,7 @@ class RollupPageTest extends FunctionalTest
 		$rollupPage->write();
 		$rollupPage->publish( 'Stage', 'Live' );
 
-		$this->assertEquals( 2, $rollupPage->Children()->count() );
-
-		$page2->Content = '';
-		$page2->write();
-		$page2->publish( 'Stage', 'Live' );
-
-		$rollupPage->write();
-		$rollupPage->publish( 'Stage', 'Live' );
-
-		$this->assertEquals( 1, $rollupPage->Children()->count() );
+		$this->assertEquals( 0, $rollupPage->Children()->count() );
 
 		$rollupPage->ShowLinksOnly = 0;
 		$rollupPage->write();
@@ -146,14 +131,17 @@ class RollupPageTest extends FunctionalTest
 		$page2->publish( 'Stage', 'Live' );
 
 		$this->assertNotContains( '<p>Page 1 content</p>', $rollupPage->Content() );
-		$this->assertContains( '<ul class="rollup-page-list">', $rollupPage->Content() );
-		$this->assertContains( '<a href="' . $page1->Link() . '">Page 1</a>', $rollupPage->Content() );
+		$this->assertContains( '<ul class="rollup-page-navigation-list">', $rollupPage->Content() );
+		$this->assertContains(
+			'<a href="' . $page1->Link() . '" data-url-segment="' . $page1->URLSegment . '">Page 1</a>',
+			$rollupPage->Content()
+		);
 
 		$rollupPage->ShowLinksOnly = 2;
 		$rollupPage->write();
 		$rollupPage->publish( 'Stage', 'Live' );
 
-		$this->assertContains( '<ul class="rollup-page-tabs">', $rollupPage->Content() );
+		$this->assertContains( '<ul class="rollup-page-navigation-tabs">', $rollupPage->Content() );
 	}
 
 

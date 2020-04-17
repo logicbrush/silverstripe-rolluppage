@@ -16,6 +16,10 @@ class RollupPageController extends PageController
 		if ( ! $page->config()->get( 'block_default_rollup_page_css' ) ) {
 			Requirements::css( 'logicbrush/silverstripe-rolluppage:css/rolluppage.css' );
 		}
+
+		if ( ! $page->config()->get( 'block_default_rollup_page_js' ) ) {
+			Requirements::javascript( 'logicbrush/silverstripe-rolluppage:javascript/rolluppage.js' );
+		}
 	}
 
 	public function index() {
