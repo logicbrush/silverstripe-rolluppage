@@ -1,5 +1,9 @@
 # silverstripe-rolluppage
 
+[![Build Status](https://travis-ci.org/logicbrush/silverstripe-rolluppage.svg?branch=master)](https://travis-ci.org/logicbrush/silverstripe-rolluppage)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/logicbrush/silverstripe-rolluppage/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/logicbrush/silverstripe-rolluppage/?branch=master)
+[![codecov.io](https://codecov.io/github/logicbrush/silverstripe-rolluppage/coverage.svg?branch=master)](https://codecov.io/github/logicbrush/silverstripe-rolluppage?branch=master)
+
 A fairly simple module for the SilverStripe CMS which rolls up the contents of
 child pages for display on a single page.
 
