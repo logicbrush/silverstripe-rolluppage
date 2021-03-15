@@ -82,7 +82,7 @@ class RollupPage extends Page
 		// original content.
 		$content = $this->Content;
 
-		if ( $this->ShowLinksOnly === 1 || $this->ShowLinksOnly === 2 ) {
+		if ( $this->ShowLinksOnly === self::DISPLAY_LIST || $this->ShowLinksOnly === self::DISPLAY_TABS ) {
 			$content .= '<nav class="rollup-page-navigation-' . $this->getRollupPageDisplayType() . '"><ul>';
 			foreach ( $this->AllChildren() as $index => $child ) {
 				if ( ! $child->NeverRollup ) {
@@ -91,7 +91,7 @@ class RollupPage extends Page
 					if ( $child->ShowInMenus ) {
 						$content .= '<li' . ( $index === 0 ? ' class="active"' : '' ) . '>';
 
-						if ( $childContent ) {
+						if ( $childContent || $this->ShowLinksOnly === self::DISPLAY_LIST ) {
 							$content .= '<a href="' . $child->Link() . '" data-url-segment="' . $child->URLSegment . '">' . $child->MenuTitle . '</a>';
 						} else {
 							$content .= '<span>' . $child->MenuTitle . '</span>';
