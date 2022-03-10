@@ -109,7 +109,10 @@ class RollupPage extends Page
 				if ( ! $child->NeverRollup ) {
 					$childContent = $child->hasMethod( 'Content' ) ? $child->Content() : $child->Content;
 					if ( $childContent ) {
-						$content .= '<div class="rollup-page-content' . ( $index === 0 ? ' active' : '' ) . '" id="rollup-page-content-' . $child->URLSegment . '">';
+
+						if ($this->ShowLinksOnly > 0) {
+							$content .= '<div class="rollup-page-content' . ( $index === 0 ? ' active' : '' ) . '" id="rollup-page-content-' . $child->URLSegment . '">';
+						}
 
 						// The class may implement a 'BeforeRollup'
 						// method that allows some content to be
@@ -129,7 +132,9 @@ class RollupPage extends Page
 							$content .= $child->AfterRollup();
 						}
 
-						$content .= '</div>';
+						if ($this->ShowLinksOnly > 0) {
+							$content .= '</div>';
+						}
 					}
 				}
 			}

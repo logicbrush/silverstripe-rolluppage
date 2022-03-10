@@ -31,9 +31,9 @@
 			"Logicbrush\\RollupPage\\": "src/"
 		}
 	},
-    "autoload-dev": {
-        "psr-4": {
-            "Logicbrush\\RollupPage\\Tests\\": "tests/"
-        }
-    }
+	"autoload-dev": {
+		"psr-4": {
+			"Logicbrush\\RollupPage\\Tests\\": "tests/"
+		}
+	}
 }

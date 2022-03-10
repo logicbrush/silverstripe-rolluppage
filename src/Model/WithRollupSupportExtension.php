@@ -22,7 +22,7 @@ class WithRollupSupportExtension extends DataExtension
 	public function updateLink( &$link, &$action, &$relativeLink ) {
 		if ( $action === null ) {
 			if ( ! $this->owner->NeverRollup &&
-				! ( Controller::curr() instanceof CMSPageEditController ) &&
+				! ( Controller::has_curr() && Controller::curr() instanceof CMSPageEditController ) &&
 				$this->owner->Parent() instanceof RollupPage &&
 				$this->owner->Parent()->ShowLinksOnly !== 1
 			) {
