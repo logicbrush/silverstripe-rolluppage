@@ -24,7 +24,8 @@
 		]
 	},
 	"require-dev": {
-		"phpunit/phpunit": "^9.5"
+		"phpunit/phpunit": "^9.5",
+		"silverstripe/sqlite3": "^2.2"
 	},
 	"autoload": {
 		"psr-4": {
