@@ -116,11 +116,11 @@ class RollupPageTest extends SapphireTest
 		$page2->write();
 		$page2->publish( 'Stage', 'Live' );
 
-		$this->assertContains( '<p>Page 1 content</p>', $rollupPage->Content() );
-		$this->assertContains( '<p>Page 2 content</p>', $rollupPage->Content() );
-		$this->assertContains( '<div>Page 2 Before Content</div>', $rollupPage->Content() );
-		$this->assertContains( '<div>Page 2 After Content</div>', $rollupPage->Content() );
-		$this->assertNotContains( '<a href="' . $page1->Link() . '">Page 1</a>', $rollupPage->Content() );
+		$this->assertStringContainsString( '<p>Page 1 content</p>', $rollupPage->Content() );
+		$this->assertStringContainsString( '<p>Page 2 content</p>', $rollupPage->Content() );
+		$this->assertStringContainsString( '<div>Page 2 Before Content</div>', $rollupPage->Content() );
+		$this->assertStringContainsString( '<div>Page 2 After Content</div>', $rollupPage->Content() );
+		$this->assertStringNotContainsString( '<a href="' . $page1->Link() . '">Page 1</a>', $rollupPage->Content() );
 
 		$rollupPage->ShowLinksOnly = 1;
 		$rollupPage->write();
@@ -132,9 +132,9 @@ class RollupPageTest extends SapphireTest
 		$page2->write();
 		$page2->publish( 'Stage', 'Live' );
 
-		$this->assertNotContains( '<p>Page 1 content</p>', $rollupPage->Content() );
-		$this->assertContains( '<nav class="rollup-page-navigation-list">', $rollupPage->Content() );
-		$this->assertContains(
+		$this->assertStringNotContainsString( '<p>Page 1 content</p>', $rollupPage->Content() );
+		$this->assertStringContainsString( '<nav class="rollup-page-navigation-list">', $rollupPage->Content() );
+		$this->assertStringContainsString(
 			'<a href="' . $page1->Link() . '" data-url-segment="' . $page1->URLSegment . '">Page 1</a>',
 			$rollupPage->Content()
 		);
@@ -153,13 +153,13 @@ class RollupPageTest extends SapphireTest
 		$rollupPage->write();
 		$rollupPage->publish( 'Stage', 'Live' );
 
-		$this->assertContains( '<p>Page 1 content</p>', $rollupPage->Content() );
-		$this->assertContains( '<nav class="rollup-page-navigation-tabs">', $rollupPage->Content() );
-		$this->assertContains(
+		$this->assertStringContainsString( '<p>Page 1 content</p>', $rollupPage->Content() );
+		$this->assertStringContainsString( '<nav class="rollup-page-navigation-tabs">', $rollupPage->Content() );
+		$this->assertStringContainsString(
 			'<a href="' . $page1->Link() . '" data-url-segment="' . $page1->URLSegment . '">Page 1</a>',
 			$rollupPage->Content()
 		);
-		$this->assertContains(
+		$this->assertStringContainsString(
 			'<span>Page 2</span>',
 			$rollupPage->Content()
 		);

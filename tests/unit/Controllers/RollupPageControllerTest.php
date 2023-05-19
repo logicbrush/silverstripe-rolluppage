@@ -2,8 +2,8 @@
 
 namespace Logicbrush\RollupPage\Tests;
 
-use Page;
 use Logicbrush\RollupPage\Model\RollupPage;
+use Page;
 use SilverStripe\Dev\FunctionalTest;
 
 class RollupPageControllerTest extends FunctionalTest
@@ -36,8 +36,8 @@ class RollupPageControllerTest extends FunctionalTest
 		$this->assertPartialMatchBySelector( 'h1', [
 				'Rollup Page',
 			] );
-		$this->assertContains( 'Child 1', $response->getBody() );
-		$this->assertNotContains( 'rollup-page-content', $response->getBody() );
+		$this->assertStringContainsString( 'Child 1', $response->getBody() );
+		$this->assertStringNotContainsString( 'rollup-page-content', $response->getBody() );
 	}
 
 	public function testDisplayingRollupPageAsTabs() {
@@ -56,8 +56,8 @@ class RollupPageControllerTest extends FunctionalTest
 		$this->assertPartialMatchBySelector( 'h1', [
 				'Rollup Page',
 			] );
-		$this->assertContains( 'Child 1', $response->getBody() );
-		$this->assertContains( 'rollup-page-content', $response->getBody() );
+		$this->assertStringContainsString( 'Child 1', $response->getBody() );
+		$this->assertStringContainsString( 'rollup-page-content', $response->getBody() );
 	}
 
 
@@ -71,13 +71,13 @@ class RollupPageControllerTest extends FunctionalTest
 
 		$response = $this->get( $rollupPage->Link() );
 
-		$this->assertContains( 'css/rolluppage.css', $response->getBody() );
+		$this->assertStringContainsString( 'css/rolluppage.css', $response->getBody() );
 
 		RollupPage::config()->update( 'block_default_rollup_page_css', true );
 
 		$response = $this->get( $rollupPage->Link() );
 
-		$this->assertNotContains( 'css/rolluppage.css', $response->getBody() );
+		$this->assertStringNotContainsString( 'css/rolluppage.css', $response->getBody() );
 	}
 
 
@@ -91,13 +91,13 @@ class RollupPageControllerTest extends FunctionalTest
 
 		$response = $this->get( $rollupPage->Link() );
 
-		$this->assertContains( 'javascript/rolluppage.js', $response->getBody() );
+		$this->assertStringContainsString( 'javascript/rolluppage.js', $response->getBody() );
 
 		RollupPage::config()->update( 'block_default_rollup_page_js', true );
 
 		$response = $this->get( $rollupPage->Link() );
 
-		$this->assertNotContains( 'javascript/rolluppage.js', $response->getBody() );
+		$this->assertStringNotContainsString( 'javascript/rolluppage.js', $response->getBody() );
 	}
 
 
