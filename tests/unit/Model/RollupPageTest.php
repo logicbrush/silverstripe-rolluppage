@@ -1,4 +1,10 @@
 <?php
+/**
+ * tests/unit/Model/RollupPageTest.php
+ *
+ * @package default
+ */
+
 
 namespace Logicbrush\RollupPage\Tests;
 
@@ -10,6 +16,9 @@ class RollupPageTest extends SapphireTest
 {
 	protected $usesDatabase = true;
 
+	/**
+	 *
+	 */
 	public function testCreateRollupPage() {
 		$rollupPage = new RollupPage();
 		$rollupPage->write();
@@ -17,6 +26,9 @@ class RollupPageTest extends SapphireTest
 	}
 
 
+	/**
+	 *
+	 */
 	public function testGetCMSFields() {
 		$rollupPage = RollupPage::create();
 		$rollupPage->write();
@@ -27,6 +39,9 @@ class RollupPageTest extends SapphireTest
 	}
 
 
+	/**
+	 *
+	 */
 	public function testChildren() {
 		$rollupPage = RollupPage::create();
 		$rollupPage->ShowLinksOnly = 1;
@@ -75,6 +90,9 @@ class RollupPageTest extends SapphireTest
 	}
 
 
+	/**
+	 *
+	 */
 	public function testGetRollupPageDisplayType() {
 		$rollupPage = RollupPage::create();
 		$rollupPage->ShowLinksOnly = 0;
@@ -94,6 +112,9 @@ class RollupPageTest extends SapphireTest
 	}
 
 
+	/**
+	 *
+	 */
 	public function testContent() {
 		$rollupPage = RollupPage::create();
 		$rollupPage->Title = 'Rollup Page';

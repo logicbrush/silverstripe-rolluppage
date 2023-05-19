@@ -1,4 +1,10 @@
 <?php
+/**
+ * tests/unit/Controllers/RollupPageControllerTest.php
+ *
+ * @package default
+ */
+
 
 namespace Logicbrush\RollupPage\Tests;
 
@@ -10,7 +16,13 @@ class RollupPageControllerTest extends FunctionalTest
 {
 	protected $usesDatabase = true;
 
-	protected function addChildPage($parent, $title = 'Child Page') {
+	/**
+	 *
+	 * @param unknown $parent
+	 * @param unknown $title  (optional)
+	 * @return unknown
+	 */
+	protected function addChildPage( $parent, $title = 'Child Page' ) {
 		$page = Page::create();
 		$page->Title = $title;
 		$page->Content = "<p>{$title} Content.</p>";
@@ -19,6 +31,10 @@ class RollupPageControllerTest extends FunctionalTest
 		return $page;
 	}
 
+
+	/**
+	 *
+	 */
 	public function testDisplayingRollupPageInline() {
 
 		$rollupPage = RollupPage::create();
@@ -28,7 +44,7 @@ class RollupPageControllerTest extends FunctionalTest
 		$rollupPage->write();
 		$rollupPage->publish( 'Stage', 'Live' );
 
-		$child1 = $this->addChildPage($rollupPage, 'Child 1');
+		$child1 = $this->addChildPage( $rollupPage, 'Child 1' );
 		$child1->publish( 'Stage', 'Live' );
 
 		$response = $this->get( $rollupPage->Link() );
@@ -40,6 +56,10 @@ class RollupPageControllerTest extends FunctionalTest
 		$this->assertStringNotContainsString( 'rollup-page-content', $response->getBody() );
 	}
 
+
+	/**
+	 *
+	 */
 	public function testDisplayingRollupPageAsTabs() {
 		$rollupPage = RollupPage::create();
 		$rollupPage->Title = 'Rollup Page';
@@ -48,7 +68,7 @@ class RollupPageControllerTest extends FunctionalTest
 		$rollupPage->write();
 		$rollupPage->publish( 'Stage', 'Live' );
 
-		$child1 = $this->addChildPage($rollupPage, 'Child 1');
+		$child1 = $this->addChildPage( $rollupPage, 'Child 1' );
 		$child1->publish( 'Stage', 'Live' );
 
 		$response = $this->get( $rollupPage->Link() );
@@ -61,6 +81,9 @@ class RollupPageControllerTest extends FunctionalTest
 	}
 
 
+	/**
+	 *
+	 */
 	public function testBlockDefaultRollupPageCSS() {
 
 		$rollupPage = RollupPage::create();
@@ -81,6 +104,9 @@ class RollupPageControllerTest extends FunctionalTest
 	}
 
 
+	/**
+	 *
+	 */
 	public function testBlockDefaultRollupPageJavascript() {
 
 		$rollupPage = RollupPage::create();

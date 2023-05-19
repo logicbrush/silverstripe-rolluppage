@@ -1,4 +1,10 @@
 <?php
+/**
+ * tests/unit/Model/WithRollupSupportExtensionTest.php
+ *
+ * @package default
+ */
+
 
 namespace Logicbrush\RollupPage\Tests;
 
@@ -10,6 +16,9 @@ class WithRollupSupportExtensionTest extends SapphireTest {
 
 	protected $usesDatabase = true;
 
+	/**
+	 *
+	 */
 	public function testGetSettingsFields() {
 		$page = Page::create();
 		$page->write();
@@ -20,6 +29,9 @@ class WithRollupSupportExtensionTest extends SapphireTest {
 	}
 
 
+	/**
+	 *
+	 */
 	public function testLink() {
 		$rollupPage = RollupPage::create();
 		$rollupPage->Title = 'Rollup Page';

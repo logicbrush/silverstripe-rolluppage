@@ -1,4 +1,10 @@
 <?php
+/**
+ * src/Model/WithRollupSupportExtension.php
+ *
+ * @package default
+ */
+
 
 namespace Logicbrush\RollupPage\Model;
 
@@ -14,11 +20,21 @@ class WithRollupSupportExtension extends DataExtension
 		'NeverRollup' => 'Boolean',
 	];
 
+	/**
+	 *
+	 * @param FieldList $fields
+	 */
 	public function updateSettingsFields( FieldList $fields ) {
 		$fields->insertAfter( 'ShowInSearch', CheckboxField::create( 'NeverRollup', 'Never rollup this page?' ) );
 	}
 
 
+	/**
+	 *
+	 * @param unknown $link
+	 * @param unknown $action
+	 * @param unknown $relativeLink
+	 */
 	public function updateLink( &$link, &$action, &$relativeLink ) {
 		if ( $action === null ) {
 			if ( ! $this->owner->NeverRollup &&
