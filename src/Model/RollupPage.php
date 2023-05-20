@@ -119,7 +119,7 @@ class RollupPage extends Page
 					if ( $child->ShowInMenus ) {
 						$content .= '<li' . ( $index === 0 ? ' class="active"' : '' ) . '>';
 
-						if ( $childContent ) {
+						if ( $childContent || $this->ShowLinksOnly === self::DISPLAY_LIST ) {
 							$content .= '<a href="' . $child->Link() . '" data-url-segment="' . $child->URLSegment . '">' . $child->MenuTitle . '</a>';
 						} else {
 							$content .= '<span>' . $child->MenuTitle . '</span>';
