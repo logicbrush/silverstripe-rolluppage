@@ -1,4 +1,10 @@
 <?php
+/**
+ * src/Model/RollupPage.php
+ *
+ * @package default
+ */
+
 
 namespace Logicbrush\RollupPage\Model;
 
@@ -30,6 +36,7 @@ class RollupPage extends Page
 
 	/**
 	 * Set this to true to disable automatic inclusion of CSS files
+	 *
 	 * @config
 	 * @var bool
 	 */
@@ -37,11 +44,17 @@ class RollupPage extends Page
 
 	/**
 	 * Set this to true to disable automatic inclusion of Javascript files
+	 *
 	 * @config
 	 * @var bool
 	 */
 	private static $block_default_rollup_page_js = false;
 
+	/**
+	 *
+	 * @Metrics( crap = 1 )
+	 * @return unknown
+	 */
 	public function getCMSFields() {
 		$fields = parent::getCMSFields();
 
@@ -63,6 +76,11 @@ class RollupPage extends Page
 	}
 
 
+	/**
+	 *
+	 * @Metrics( crap = 2 )
+	 * @return unknown
+	 */
 	public function Children() {
 		if ( $this->ShowLinksOnly !== 1 ) {
 			return ArrayList::create();
@@ -73,11 +91,21 @@ class RollupPage extends Page
 	}
 
 
+	/**
+	 *
+	 * @Metrics( crap = 1 )
+	 * @return unknown
+	 */
 	public function getRollupPageDisplayType() {
 		return self::ROLLUP_PAGE_DISPLAY_TYPE[$this->ShowLinksOnly];
 	}
 
 
+	/**
+	 *
+	 * @Metrics( crap = 21 )
+	 * @return unknown
+	 */
 	public function Content() {
 		// original content.
 		$content = $this->Content;
@@ -110,7 +138,7 @@ class RollupPage extends Page
 					$childContent = $child->hasMethod( 'Content' ) ? $child->Content() : $child->Content;
 					if ( $childContent ) {
 
-						if ($this->ShowLinksOnly > 0) {
+						if ( $this->ShowLinksOnly > 0 ) {
 							$content .= '<div class="rollup-page-content' . ( $index === 0 ? ' active' : '' ) . '" id="rollup-page-content-' . $child->URLSegment . '">';
 						}
 
@@ -121,7 +149,7 @@ class RollupPage extends Page
 							$content .= $child->BeforeRollup();
 						}
 
-						if ($this->ShowLinksOnly != self::DISPLAY_TABS) {
+						if ( $this->ShowLinksOnly != self::DISPLAY_TABS ) {
 							// For tabs, the display of the header is redundant.
 							$content .= '<h2><a name="' . $child->URLSegment . '"></a>' . $child->Title . '</h2>';
 						}
@@ -132,7 +160,7 @@ class RollupPage extends Page
 							$content .= $child->AfterRollup();
 						}
 
-						if ($this->ShowLinksOnly > 0) {
+						if ( $this->ShowLinksOnly > 0 ) {
 							$content .= '</div>';
 						}
 					}
@@ -144,6 +172,11 @@ class RollupPage extends Page
 	}
 
 
+	/**
+	 *
+	 * @Metrics( crap = 1 )
+	 * @return unknown
+	 */
 	public function getControllerName() {
 		return RollupPageController::class;
 	}

@@ -1,4 +1,10 @@
 <?php
+/**
+ * src/Controllers/RollupPageController.php
+ *
+ * @package default
+ */
+
 
 namespace Logicbrush\RollupPage\Controllers;
 
@@ -8,6 +14,10 @@ use SilverStripe\ORM\FieldType\DBField;
 
 class RollupPageController extends PageController
 {
+
+	/**
+	 *
+	 */
 	public function init() {
 		parent::init();
 
@@ -22,6 +32,11 @@ class RollupPageController extends PageController
 		}
 	}
 
+
+	/**
+	 *
+	 * @return unknown
+	 */
 	public function index() {
 		// return composite.
 		return [

@@ -1,6 +1,8 @@
-vendor
+/app
+/vendor
+/resources
+/assets
 composer.lock
-resources
-run
-app
-assets
+*.cache
+*.bak
+*~

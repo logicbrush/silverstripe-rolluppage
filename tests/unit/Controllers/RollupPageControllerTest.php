@@ -1,16 +1,28 @@
 <?php
+/**
+ * tests/unit/Controllers/RollupPageControllerTest.php
+ *
+ * @package default
+ */
+
 
 namespace Logicbrush\RollupPage\Tests;
 
-use Page;
 use Logicbrush\RollupPage\Model\RollupPage;
+use Page;
 use SilverStripe\Dev\FunctionalTest;
 
 class RollupPageControllerTest extends FunctionalTest
 {
 	protected $usesDatabase = true;
 
-	protected function addChildPage($parent, $title = 'Child Page') {
+	/**
+	 *
+	 * @param unknown $parent
+	 * @param unknown $title  (optional)
+	 * @return unknown
+	 */
+	protected function addChildPage( $parent, $title = 'Child Page' ) {
 		$page = Page::create();
 		$page->Title = $title;
 		$page->Content = "<p>{$title} Content.</p>";
@@ -19,6 +31,10 @@ class RollupPageControllerTest extends FunctionalTest
 		return $page;
 	}
 
+
+	/**
+	 *
+	 */
 	public function testDisplayingRollupPageInline() {
 
 		$rollupPage = RollupPage::create();
@@ -28,7 +44,7 @@ class RollupPageControllerTest extends FunctionalTest
 		$rollupPage->write();
 		$rollupPage->publish( 'Stage', 'Live' );
 
-		$child1 = $this->addChildPage($rollupPage, 'Child 1');
+		$child1 = $this->addChildPage( $rollupPage, 'Child 1' );
 		$child1->publish( 'Stage', 'Live' );
 
 		$response = $this->get( $rollupPage->Link() );
@@ -36,10 +52,14 @@ class RollupPageControllerTest extends FunctionalTest
 		$this->assertPartialMatchBySelector( 'h1', [
 				'Rollup Page',
 			] );
-		$this->assertContains( 'Child 1', $response->getBody() );
-		$this->assertNotContains( 'rollup-page-content', $response->getBody() );
+		$this->assertStringContainsString( 'Child 1', $response->getBody() );
+		$this->assertStringNotContainsString( 'rollup-page-content', $response->getBody() );
 	}
 
+
+	/**
+	 *
+	 */
 	public function testDisplayingRollupPageAsTabs() {
 		$rollupPage = RollupPage::create();
 		$rollupPage->Title = 'Rollup Page';
@@ -48,7 +68,7 @@ class RollupPageControllerTest extends FunctionalTest
 		$rollupPage->write();
 		$rollupPage->publish( 'Stage', 'Live' );
 
-		$child1 = $this->addChildPage($rollupPage, 'Child 1');
+		$child1 = $this->addChildPage( $rollupPage, 'Child 1' );
 		$child1->publish( 'Stage', 'Live' );
 
 		$response = $this->get( $rollupPage->Link() );
@@ -56,11 +76,14 @@ class RollupPageControllerTest extends FunctionalTest
 		$this->assertPartialMatchBySelector( 'h1', [
 				'Rollup Page',
 			] );
-		$this->assertContains( 'Child 1', $response->getBody() );
-		$this->assertContains( 'rollup-page-content', $response->getBody() );
+		$this->assertStringContainsString( 'Child 1', $response->getBody() );
+		$this->assertStringContainsString( 'rollup-page-content', $response->getBody() );
 	}
 
 
+	/**
+	 *
+	 */
 	public function testBlockDefaultRollupPageCSS() {
 
 		$rollupPage = RollupPage::create();
@@ -71,16 +94,19 @@ class RollupPageControllerTest extends FunctionalTest
 
 		$response = $this->get( $rollupPage->Link() );
 
-		$this->assertContains( 'css/rolluppage.css', $response->getBody() );
+		$this->assertStringContainsString( 'css/rolluppage.css', $response->getBody() );
 
 		RollupPage::config()->update( 'block_default_rollup_page_css', true );
 
 		$response = $this->get( $rollupPage->Link() );
 
-		$this->assertNotContains( 'css/rolluppage.css', $response->getBody() );
+		$this->assertStringNotContainsString( 'css/rolluppage.css', $response->getBody() );
 	}
 
 
+	/**
+	 *
+	 */
 	public function testBlockDefaultRollupPageJavascript() {
 
 		$rollupPage = RollupPage::create();
@@ -91,13 +117,13 @@ class RollupPageControllerTest extends FunctionalTest
 
 		$response = $this->get( $rollupPage->Link() );
 
-		$this->assertContains( 'javascript/rolluppage.js', $response->getBody() );
+		$this->assertStringContainsString( 'javascript/rolluppage.js', $response->getBody() );
 
 		RollupPage::config()->update( 'block_default_rollup_page_js', true );
 
 		$response = $this->get( $rollupPage->Link() );
 
-		$this->assertNotContains( 'javascript/rolluppage.js', $response->getBody() );
+		$this->assertStringNotContainsString( 'javascript/rolluppage.js', $response->getBody() );
 	}
 
 
