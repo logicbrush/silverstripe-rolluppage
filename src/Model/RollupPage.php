@@ -103,7 +103,7 @@ class RollupPage extends Page
 
 	/**
 	 *
-	 * @Metrics( crap = 21 )
+	 * @Metrics( crap = 22 )
 	 * @return unknown
 	 */
 	public function Content() {
