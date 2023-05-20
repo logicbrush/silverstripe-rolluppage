@@ -52,6 +52,7 @@ class RollupPage extends Page
 
 	/**
 	 *
+	 * @Metrics( crap = 1 )
 	 * @return unknown
 	 */
 	public function getCMSFields() {
@@ -77,6 +78,7 @@ class RollupPage extends Page
 
 	/**
 	 *
+	 * @Metrics( crap = 2 )
 	 * @return unknown
 	 */
 	public function Children() {
@@ -91,6 +93,7 @@ class RollupPage extends Page
 
 	/**
 	 *
+	 * @Metrics( crap = 1 )
 	 * @return unknown
 	 */
 	public function getRollupPageDisplayType() {
@@ -100,6 +103,7 @@ class RollupPage extends Page
 
 	/**
 	 *
+	 * @Metrics( crap = 21 )
 	 * @return unknown
 	 */
 	public function Content() {
@@ -170,6 +174,7 @@ class RollupPage extends Page
 
 	/**
 	 *
+	 * @Metrics( crap = 1 )
 	 * @return unknown
 	 */
 	public function getControllerName() {
