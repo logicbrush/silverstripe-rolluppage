@@ -46,7 +46,7 @@ class RollupPageTest extends SapphireTest
 		$rollupPage = RollupPage::create();
 		$rollupPage->ShowLinksOnly = 1;
 		$rollupPage->write();
-		$rollupPage->publish( 'Stage', 'Live' );
+		$rollupPage->publishSingle();
 
 		$this->assertEquals( 0, $rollupPage->Children()->count() );
 
@@ -54,37 +54,37 @@ class RollupPageTest extends SapphireTest
 		$page1->Content = '<p>Page 1</p>';
 		$page1->ParentID = $rollupPage->ID;
 		$page1->write();
-		$page1->publish( 'Stage', 'Live' );
+		$page1->publishSingle();
 
 		$page2 = Page::create();
 		$page2->Content = '';
 		$page2->ParentID = $rollupPage->ID;
 		$page2->write();
-		$page2->publish( 'Stage', 'Live' );
+		$page2->publishSingle();
 
 		$rollupPage->write();
-		$rollupPage->publish( 'Stage', 'Live' );
+		$rollupPage->publishSingle();
 
 		$this->assertEquals( 1, $rollupPage->Children()->count() );
 
 		$page2->Content = '<p>Page 2</p>';
 		$page2->write();
-		$page2->publish( 'Stage', 'Live' );
+		$page2->publishSingle();
 
 		$rollupPage->write();
-		$rollupPage->publish( 'Stage', 'Live' );
+		$rollupPage->publishSingle();
 
 		$this->assertEquals( 2, $rollupPage->Children()->count() );
 
 		$rollupPage->ShowLinksOnly = 2;
 		$rollupPage->write();
-		$rollupPage->publish( 'Stage', 'Live' );
+		$rollupPage->publishSingle();
 
 		$this->assertEquals( 0, $rollupPage->Children()->count() );
 
 		$rollupPage->ShowLinksOnly = 0;
 		$rollupPage->write();
-		$rollupPage->publish( 'Stage', 'Live' );
+		$rollupPage->publishSingle();
 
 		$this->assertEquals( 0, $rollupPage->Children()->count() );
 	}
@@ -120,7 +120,7 @@ class RollupPageTest extends SapphireTest
 		$rollupPage->Title = 'Rollup Page';
 		$rollupPage->ShowLinksOnly = 0;
 		$rollupPage->write();
-		$rollupPage->publish( 'Stage', 'Live' );
+		$rollupPage->publishSingle();
 
 
 		$page1 = Page::create();
@@ -128,14 +128,14 @@ class RollupPageTest extends SapphireTest
 		$page1->Content = '<p>Page 1 content</p>';
 		$page1->ParentID = $rollupPage->ID;
 		$page1->write();
-		$page1->publish( 'Stage', 'Live' );
+		$page1->publishSingle();
 
 		$page2 = FakePage::create();
 		$page2->Title = 'Page 2';
 		$page2->Content = '<p>Page 2 content</p>';
 		$page2->ParentID = $rollupPage->ID;
 		$page2->write();
-		$page2->publish( 'Stage', 'Live' );
+		$page2->publishSingle();
 
 		$this->assertStringContainsString( '<p>Page 1 content</p>', $rollupPage->Content() );
 		$this->assertStringContainsString( '<p>Page 2 content</p>', $rollupPage->Content() );
@@ -145,13 +145,13 @@ class RollupPageTest extends SapphireTest
 
 		$rollupPage->ShowLinksOnly = 1;
 		$rollupPage->write();
-		$rollupPage->publish( 'Stage', 'Live' );
+		$rollupPage->publishSingle();
 
 		$page1->write();
-		$page1->publish( 'Stage', 'Live' );
+		$page1->publishSingle();
 
 		$page2->write();
-		$page2->publish( 'Stage', 'Live' );
+		$page2->publishSingle();
 
 		$this->assertStringNotContainsString( '<p>Page 1 content</p>', $rollupPage->Content() );
 		$this->assertStringContainsString( '<nav class="rollup-page-navigation-list">', $rollupPage->Content() );
@@ -162,17 +162,17 @@ class RollupPageTest extends SapphireTest
 
 		$rollupPage->ShowLinksOnly = 2;
 		$rollupPage->write();
-		$rollupPage->publish( 'Stage', 'Live' );
+		$rollupPage->publishSingle();
 
 		$page1->write();
-		$page1->publish( 'Stage', 'Live' );
+		$page1->publishSingle();
 
 		$page2->Content = '';
 		$page2->write();
-		$page2->publish( 'Stage', 'Live' );
+		$page2->publishSingle();
 
 		$rollupPage->write();
-		$rollupPage->publish( 'Stage', 'Live' );
+		$rollupPage->publishSingle();
 
 		$this->assertStringContainsString( '<p>Page 1 content</p>', $rollupPage->Content() );
 		$this->assertStringContainsString( '<nav class="rollup-page-navigation-tabs">', $rollupPage->Content() );
