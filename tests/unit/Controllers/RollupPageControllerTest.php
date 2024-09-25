@@ -42,10 +42,10 @@ class RollupPageControllerTest extends FunctionalTest
 		$rollupPage->Content = '<p>Rollup</p>';
 		$rollupPage->ShowLinksOnly = RollupPage::DISPLAY_INLINE;
 		$rollupPage->write();
-		$rollupPage->publish( 'Stage', 'Live' );
+		$rollupPage->publishSingle();
 
 		$child1 = $this->addChildPage( $rollupPage, 'Child 1' );
-		$child1->publish( 'Stage', 'Live' );
+		$child1->publishSingle();
 
 		$response = $this->get( $rollupPage->Link() );
 		$this->assertEquals( 200, $response->getStatusCode() );
@@ -66,10 +66,10 @@ class RollupPageControllerTest extends FunctionalTest
 		$rollupPage->Content = '<p>Rollup</p>';
 		$rollupPage->ShowLinksOnly = RollupPage::DISPLAY_TABS;
 		$rollupPage->write();
-		$rollupPage->publish( 'Stage', 'Live' );
+		$rollupPage->publishSingle();
 
 		$child1 = $this->addChildPage( $rollupPage, 'Child 1' );
-		$child1->publish( 'Stage', 'Live' );
+		$child1->publishSingle();
 
 		$response = $this->get( $rollupPage->Link() );
 		$this->assertEquals( 200, $response->getStatusCode() );
@@ -90,7 +90,7 @@ class RollupPageControllerTest extends FunctionalTest
 		$rollupPage->Title = 'Rollup Page';
 		$rollupPage->Content = '<p>Rollup</p>';
 		$rollupPage->write();
-		$rollupPage->publish( 'Stage', 'Live' );
+		$rollupPage->publishSingle();
 
 		$response = $this->get( $rollupPage->Link() );
 
@@ -113,7 +113,7 @@ class RollupPageControllerTest extends FunctionalTest
 		$rollupPage->Title = 'Rollup Page';
 		$rollupPage->Content = '<p>Rollup</p>';
 		$rollupPage->write();
-		$rollupPage->publish( 'Stage', 'Live' );
+		$rollupPage->publishSingle();
 
 		$response = $this->get( $rollupPage->Link() );
 
