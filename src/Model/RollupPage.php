@@ -59,6 +59,7 @@ class RollupPage extends Page
 		$fields = parent::getCMSFields();
 
 		$fields->insertBefore(
+			'Content',
 			OptionsetField::create(
 				'ShowLinksOnly',
 				'Rollup Display',
@@ -67,8 +68,7 @@ class RollupPage extends Page
 					2 => 'Show children in tabs',
 					1 => 'Show children as links',
 				]
-			),
-			'Content' );
+			) );
 		$contentField = $fields->dataFieldByName( 'Content' );
 		$contentField->setTitle( 'Introduction' );
 

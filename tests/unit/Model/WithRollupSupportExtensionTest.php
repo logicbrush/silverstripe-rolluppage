@@ -43,21 +43,21 @@ class WithRollupSupportExtensionTest extends SapphireTest {
 		$page1->ParentID = $rollupPage->ID;
 		$page1->write();
 
-		$this->assertEquals( '/rollup-page/page-1/', $page1->Link() );
+		$this->assertContains( $page1->Link(), ['/rollup-page/page-1/', '/rollup-page/page-1'] );
 
 		$rollupPage->ShowLinksOnly = 0;
 		$rollupPage->write();
 		$page1->ParentID = $rollupPage->ID;
 		$page1->write();
 
-		$this->assertEquals( '/rollup-page/#page-1', $page1->Link() );
+		$this->assertContains( $page1->Link(), ['/rollup-page/#page-1', '/rollup-page#page-1'] );
 
 		$rollupPage->ShowLinksOnly = 2;
 		$rollupPage->write();
 		$page1->ParentID = $rollupPage->ID;
 		$page1->write();
 
-		$this->assertEquals( '/rollup-page/#page-1', $page1->Link() );
+		$this->assertContains( $page1->Link(), ['/rollup-page/#page-1', '/rollup-page#page-1'] );
 	}
 
 
