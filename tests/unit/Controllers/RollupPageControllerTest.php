@@ -96,7 +96,7 @@ class RollupPageControllerTest extends FunctionalTest
 
 		$this->assertStringContainsString( 'css/rolluppage.css', $response->getBody() );
 
-		RollupPage::config()->modify( 'block_default_rollup_page_css', true );
+		RollupPage::config()->set( 'block_default_rollup_page_css', true );
 
 		$response = $this->get( $rollupPage->Link() );
 
@@ -119,7 +119,7 @@ class RollupPageControllerTest extends FunctionalTest
 
 		$this->assertStringContainsString( 'javascript/rolluppage.js', $response->getBody() );
 
-		RollupPage::config()->modify( 'block_default_rollup_page_js', true );
+		RollupPage::config()->set( 'block_default_rollup_page_js', true );
 
 		$response = $this->get( $rollupPage->Link() );
 
