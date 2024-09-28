@@ -82,12 +82,10 @@ class RollupPage extends Page
 	 * @return unknown
 	 */
 	public function Children() {
-		if ( $this->ShowLinksOnly !== 1 ) {
+		if ( $this->ShowLinksOnly !== self::DISPLAY_LIST ) {
 			return ArrayList::create();
 		}
-		parent::Children();
-
-		return parent::Children()->exclude( ['Content' => ''] );
+		return  parent::Children();
 	}
 
 
