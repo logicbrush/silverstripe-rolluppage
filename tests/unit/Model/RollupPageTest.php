@@ -40,52 +40,36 @@ class RollupPageTest extends SapphireTest
 
 
 	/**
-	 *
+	 * The list of children for the rollup page can vary depending on the value
+	 * of `ShowLinksOnly`.
 	 */
-	public function testChildren() {
+	public function testChildrenWithShowLinksOnlyOptions() {
+
 		$rollupPage = RollupPage::create();
-		$rollupPage->ShowLinksOnly = 1;
+		$rollupPage->ShowLinksOnly = RollupPage::DISPLAY_INLINE;
 		$rollupPage->write();
 		$rollupPage->publishSingle();
 
+		$childPage = Page::create();
+		$childPage->ParentID = $rollupPage->ID;
+		$childPage->write();
+		$childPage->publishSingle();
+
+		// ShowLinksOnly == DISPLAY_INLINE -> should have no children.
 		$this->assertEquals( 0, $rollupPage->Children()->count() );
 
-		$page1 = Page::create();
-		$page1->Content = '<p>Page 1</p>';
-		$page1->ParentID = $rollupPage->ID;
-		$page1->write();
-		$page1->publishSingle();
-
-		$page2 = Page::create();
-		$page2->Content = '';
-		$page2->ParentID = $rollupPage->ID;
-		$page2->write();
-		$page2->publishSingle();
-
+		$rollupPage->ShowLinksOnly = RollupPage::DISPLAY_LIST;
 		$rollupPage->write();
 		$rollupPage->publishSingle();
 
+		// ShowLinksOnly == DISPLAY_LIST -> should have one child.
 		$this->assertEquals( 1, $rollupPage->Children()->count() );
 
-		$page2->Content = '<p>Page 2</p>';
-		$page2->write();
-		$page2->publishSingle();
-
+		$rollupPage->ShowLinksOnly = RollupPage::DISPLAY_TABS;
 		$rollupPage->write();
 		$rollupPage->publishSingle();
 
-		$this->assertEquals( 2, $rollupPage->Children()->count() );
-
-		$rollupPage->ShowLinksOnly = 2;
-		$rollupPage->write();
-		$rollupPage->publishSingle();
-
-		$this->assertEquals( 0, $rollupPage->Children()->count() );
-
-		$rollupPage->ShowLinksOnly = 0;
-		$rollupPage->write();
-		$rollupPage->publishSingle();
-
+		// ShowLinksOnly == DISPLAY_TABS -> should have no children.
 		$this->assertEquals( 0, $rollupPage->Children()->count() );
 	}
 
