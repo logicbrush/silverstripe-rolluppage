@@ -22,7 +22,7 @@ class WithRollupSupportExtension extends DataExtension
 
 	/**
 	 *
-	 * @param FieldList $fields
+	 * @Metrics( crap = 1 )
 	 */
 	public function updateSettingsFields( FieldList $fields ) {
 		$fields->insertAfter( 'ShowInSearch', CheckboxField::create( 'NeverRollup', 'Never rollup this page?' ) );
@@ -31,19 +31,17 @@ class WithRollupSupportExtension extends DataExtension
 
 	/**
 	 *
+	 * @Metrics( crap = 7 )
 	 * @param unknown $link
 	 * @param unknown $action
 	 * @param unknown $relativeLink
 	 */
 	public function updateLink( &$link, &$action, &$relativeLink ) {
-		if ( $action === null ) {
-			if ( ! $this->owner->NeverRollup &&
+		if ( $action === null && ( ! $this->owner->NeverRollup &&
 				! ( Controller::has_curr() && Controller::curr() instanceof CMSPageEditController ) &&
 				$this->owner->Parent() instanceof RollupPage &&
-				$this->owner->Parent()->ShowLinksOnly !== 1
-			) {
-				$link = $this->owner->Parent()->Link() . '#' . $this->owner->URLSegment;
-			}
+				$this->owner->Parent()->ShowLinksOnly !== 1 ) ) {
+			$link = $this->owner->Parent()->Link() . '#' . $this->owner->URLSegment;
 		}
 	}
 
