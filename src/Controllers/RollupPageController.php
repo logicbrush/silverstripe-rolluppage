@@ -17,6 +17,7 @@ class RollupPageController extends PageController
 
 	/**
 	 *
+	 * @Metrics( crap = 3 )
 	 */
 	public function init() {
 		parent::init();
@@ -35,6 +36,7 @@ class RollupPageController extends PageController
 
 	/**
 	 *
+	 * @Metrics( crap = 1 )
 	 * @return unknown
 	 */
 	public function index() {
